@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý sản phẩm - Bánh nướng</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Quản lý sản phẩm</h1>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('admin.admin_home') }}">Trang chủ quản trị</a></li>
+                <li><a href="{{ url_for('auth.logout') }}">Đăng xuất</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section>
+            <h2>Thêm sản phẩm mới</h2>
+            <form action="{{ url_for('admin_product.manage_products') }}" method="post">
+                <div>
+                    <label for="name">Tên sản phẩm:</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div>
+                    <label for="description">Mô tả:</label>
+                    <textarea id="description" name="description" required></textarea>
+                </div>
+                <div>
+                    <label for="price">Giá (VND):</label>
+                    <input type="number" id="price" name="price" required>
+                </div>
+                <div>
+                    <label for="estimated_time">Thời gian làm dự kiến (phút):</label>
+                    <input type="number" id="estimated_time" name="estimated_time" required>
+                </div>
+                <div>
+                    <label for="can_make">Có thể làm:</label>
+                    <select id="can_make" name="can_make">
+                        <option value="yes">Có</option>
+                        <option value="no">Không</option>
+                    </select>
+                </div>
+                <button type="submit">Thêm sản phẩm</button>
+            </form>
+        </section>
+        <section>
+            <h2>Danh sách sản phẩm</h2>
+            <div class="product-list">
+                {% for product in products %}
+                <div class="product-item">
+                    <h3>{{ product.name }}</h3>
+                    <p>{{ product.description }}</p>
+                    <p>Giá: {{ product.price }} VND</p>
+                    <p>Thời gian làm dự kiến: {{ product.estimated_time }} phút</p>
+                    <p>Trạng thái: {% if product.can_make %}Có thể làm{% else %}Không thể làm{% endif %}</p>
+                    <form action="{{ url_for('admin_product.delete_product', product_id=product.id) }}" method="post">
+                        <button type="submit">Xóa sản phẩm</button>
+                    </form>
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2024 Cửa hàng Bánh Nướng</p>
+    </footer>
+</body>
+</html>

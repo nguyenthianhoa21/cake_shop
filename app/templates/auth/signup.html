@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng ký - Bánh nướng</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Đăng ký tài khoản tại cửa hàng Bánh Nướng</h1>
+    </header>
+    <main>
+        <form action="{{ url_for('auth.signup') }}" method="post">
+            <div>
+                <label for="username">Tên đăng nhập:</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            <div>
+                <label for="fullname">Họ và tên:</label>
+                <input type="text" id="fullname" name="fullname" required>
+            </div>
+            <div>
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div>
+                <label for="phone">Số điện thoại:</label>
+                <input type="text" id="phone" name="phone" required>
+            </div>
+            <div>
+                <label for="password">Mật khẩu:</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <div>
+                <label for="confirm_password">Nhập lại mật khẩu:</label>
+                <input type="password" id="confirm_password" name="confirm_password" required>
+            </div>
+            <div>
+                <label for="bank_account">Số tài khoản ngân hàng:</label>
+                <input type="text" id="bank_account" name="bank_account" required>
+            </div>
+            <div>
+                <label for="bank_name">Tên ngân hàng:</label>
+                <input type="text" id="bank_name" name="bank_name" required>
+            </div>
+            <button type="submit">Đăng ký</button>
+        </form>
+        <p>Đã có tài khoản? <a href="{{ url_for('auth.login') }}">Đăng nhập</a></p>
+    </main>
+    <footer>
+        <p>&copy; 2024 Cửa hàng Bánh Nướng</p>
+    </footer>
+</body>
+</html>

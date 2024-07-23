@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý nguyên liệu - Bánh nướng</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Quản lý nguyên liệu</h1>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('admin.admin_home') }}">Trang chủ quản trị</a></li>
+                <li><a href="{{ url_for('auth.logout') }}">Đăng xuất</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section>
+            <h2>Thêm nguyên liệu mới</h2>
+            <form action="{{ url_for('admin_ingredient.manage_ingredients') }}" method="post">
+                <div>
+                    <label for="name">Tên nguyên liệu:</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div>
+                    <label for="quantity">Số lượng:</label>
+                    <input type="number" id="quantity" name="quantity" step="0.01" required>
+                </div>
+                <div>
+                    <label for="unit">Đơn vị:</label>
+                    <input type="text" id="unit" name="unit" required>
+                </div>
+                <button type="submit">Thêm nguyên liệu</button>
+            </form>
+        </section>
+        <section>
+            <h2>Danh sách nguyên liệu</h2>
+            <div class="ingredient-list">
+                {% for ingredient in ingredients %}
+                <div class="ingredient-item">
+                    <h3>{{ ingredient.name }}</h3>
+                    <p>Số lượng: {{ ingredient.quantity }} {{ ingredient.unit }}</p>
+                    <form action="{{ url_for('admin_ingredient.delete_ingredient', ingredient_id=ingredient.id) }}" method="post">
+                        <button type="submit">Xóa nguyên liệu</button>
+                    </form>
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2024 Cửa hàng Bánh Nướng</p>
+    </footer>
+</body>
+</html>

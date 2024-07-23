@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sản phẩm - Bánh nướng</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Sản phẩm của chúng tôi</h1>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('user.home') }}">Trang chủ</a></li>
+                <li><a href="{{ url_for('user.account') }}">Tài khoản</a></li>
+                <li><a href="{{ url_for('user.order') }}">Đặt hàng</a></li>
+                <li><a href="{{ url_for('auth.logout') }}">Đăng xuất</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section>
+            <h2>Danh sách sản phẩm</h2>
+            <div class="product-list">
+                {% for product in products %}
+                <div class="product-item">
+                    <h3>{{ product.name }}</h3>
+                    <p>{{ product.description }}</p>
+                    <p>Giá: {{ product.price }} VND</p>
+                    <p>Thời gian làm dự kiến: {{ product.estimated_time }} phút</p>
+                    <p>Trạng thái: {% if product.can_make %} Có thể làm {% else %} Không thể làm {% endif %}</p>
+                    <p>Số lượng bánh đang làm: {{ product.current_orders }}</p>
+                    <form action="{{ url_for('product.order_product', product_id=product.id) }}" method="post">
+                        <div>
+                            <label for="quantity">Số lượng:</label>
+                            <input type="number" id="quantity" name="quantity" min="1" required>
+                        </div>
+                        <button type="submit">Mua ngay</button>
+                    </form>
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2024 Cửa hàng Bánh Nướng</p>
+    </footer>
+</body>
+</html>

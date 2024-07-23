@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tài khoản của tôi - Bánh nướng</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Tài khoản của tôi</h1>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('user.home') }}">Trang chủ</a></li>
+                <li><a href="{{ url_for('user.product') }}">Sản phẩm</a></li>
+                <li><a href="{{ url_for('user.order') }}">Đặt hàng</a></li>
+                <li><a href="{{ url_for('auth.logout') }}">Đăng xuất</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section>
+            <h2>Thay đổi mật khẩu</h2>
+            <form action="{{ url_for('account.account') }}" method="post">
+                <input type="hidden" name="action" value="change_password">
+                <div>
+                    <label for="old_password">Mật khẩu cũ:</label>
+                    <input type="password" id="old_password" name="old_password" required>
+                </div>
+                <div>
+                    <label for="new_password">Mật khẩu mới:</label>
+                    <input type="password" id="new_password" name="new_password" required>
+                </div>
+                <div>
+                    <label for="confirm_password">Nhập lại mật khẩu mới:</label>
+                    <input type="password" id="confirm_password" name="confirm_password" required>
+                </div>
+                <button type="submit">Đổi mật khẩu</button>
+            </form>
+        </section>
+        <section>
+            <h2>Cập nhật thông tin tài khoản ngân hàng</h2>
+            <form action="{{ url_for('account.account') }}" method="post">
+                <input type="hidden" name="action" value="update_bank_info">
+                <div>
+                    <label for="bank_account">Số tài khoản ngân hàng:</label>
+                    <input type="text" id="bank_account" name="bank_account" value="{{ user.bank_account }}" required>
+                </div>
+                <div>
+                    <label for="bank_name">Tên ngân hàng:</label>
+                    <input type="text" id="bank_name" name="bank_name" value="{{ user.bank_name }}" required>
+                </div>
+                <button type="submit">Cập nhật</button>
+            </form>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2024 Cửa hàng Bánh Nướng</p>
+    </footer>
+</body>
+</html>

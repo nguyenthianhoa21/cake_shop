@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trang chủ - Bánh nướng</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Chào mừng, {{ user.username }}</h1>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('user.account') }}">Tài khoản</a></li>
+                <li><a href="{{ url_for('user.product') }}">Sản phẩm</a></li>
+                <li><a href="{{ url_for('user.order') }}">Đặt hàng</a></li>
+                <li><a href="{{ url_for('auth.logout') }}">Đăng xuất</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <h2>Khám phá những món bánh ngon nhất!</h2>
+        <p>Chúng tôi cung cấp nhiều loại bánh ngọt đa dạng và hấp dẫn. Hãy chọn sản phẩm yêu thích và đặt hàng ngay hôm nay.</p>
+    </main>
+    <footer>
+        <p>&copy; 2024 Cửa hàng Bánh Nướng</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tính doanh thu - Bánh nướng</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Tính doanh thu</h1>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('admin.admin_home') }}">Trang chủ quản trị</a></li>
+                <li><a href="{{ url_for('auth.logout') }}">Đăng xuất</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section>
+            <h2>Thêm doanh thu mới</h2>
+            <form action="{{ url_for('admin_revenue.manage_revenue') }}" method="post">
+                <div>
+                    <label for="date">Ngày:</label>
+                    <input type="date" id="date" name="date" required>
+                </div>
+                <div>
+                    <label for="total_revenue">Tổng doanh thu (VND):</label>
+                    <input type="number" id="total_revenue" name="total_revenue" required>
+                </div>
+                <button type="submit">Thêm/Cập nhật doanh thu</button>
+            </form>
+        </section>
+        <section>
+            <h2>Danh sách doanh thu</h2>
+            <div class="revenue-list">
+                {% for revenue in revenues %}
+                <div class="revenue-item">
+                    <h3>Ngày: {{ revenue.date }}</h3>
+                    <p>Tổng doanh thu: {{ revenue.total_revenue }} VND</p>
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2024 Cửa hàng Bánh Nướng</p>
+    </footer>
+</body>
+</html>

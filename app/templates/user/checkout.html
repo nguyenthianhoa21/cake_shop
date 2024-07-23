@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thanh toán - Bánh nướng</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Thanh toán</h1>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('user.home') }}">Trang chủ</a></li>
+                <li><a href="{{ url_for('user.account') }}">Tài khoản</a></li>
+                <li><a href="{{ url_for('user.product') }}">Sản phẩm</a></li>
+                <li><a href="{{ url_for('user.order') }}">Đặt hàng</a></li>
+                <li><a href="{{ url_for('auth.logout') }}">Đăng xuất</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section>
+            <h2>Thông tin chuyển khoản</h2>
+            <p>Vui lòng chuyển khoản số tiền đến tài khoản ngân hàng sau:</p>
+            <p><strong>Số tài khoản:</strong> 210405092004</p>
+            <p><strong>Ngân hàng:</strong> MB Bank</p>
+        </section>
+        <section>
+            <h2>Danh sách đơn hàng của bạn</h2>
+            <div class="order-list">
+                {% for order in orders %}
+                <div class="order-item">
+                    <h3>Sản phẩm: {{ order.product.name }}</h3>
+                    <p>Số lượng: {{ order.quantity }}</p>
+                    <p>Tổng giá: {{ order.total_price }} VND</p>
+                    <p>Trạng thái: {{ order.status }}</p>
+                    {% if order.receipt_image %}
+                    <p>Hóa đơn: <img src="{{ url_for('static', filename='uploads/' ~ order.receipt_image) }}" alt="Hóa đơn" width="200"></p>
+                    {% else %}
+                    <form action="{{ url_for('checkout.checkout_page') }}" method="post" enctype="multipart/form-data">
+                        <input type="hidden" name="order_id" value="{{ order.id }}">
+                        <div>
+                            <label for="receipt_image">Tải lên hóa đơn chuyển khoản:</label>
+                            <input type="file" id="receipt_image" name="receipt_image" accept="image/*" required>
+                        </div>
+                        <button type="submit">Tải lên</button>
+                    </form>
+                    {% endif %}
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2024 Cửa hàng Bánh Nướng</p>
+    </footer>
+</body>
+</html>
