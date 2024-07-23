@@ -20,8 +20,26 @@ def create_app():
     login_manager.login_view = 'auth.login'
     
     # Đăng ký các blueprint cho ứng dụng
-    from .views import register_blueprints
-    register_blueprints(app)
+    from .views.home import home as home_blueprint
+    app.register_blueprint(home_blueprint)
+
+    from .views.user import user as user_blueprint
+    app.register_blueprint(user_blueprint, url_prefix='/user')
+
+    from .views.admin import admin as admin_blueprint
+    app.register_blueprint(admin_blueprint, url_prefix='/admin')
+
+    from .views.auth import auth as auth_blueprint
+    app.register_blueprint(auth_blueprint)
+    
+    from .views.admin.product import admin_product as admin_product_blueprint
+    app.register_blueprint(admin_product_blueprint, url_prefix='/admin')
+    
+    from .views.admin.ingredient import admin_ingredient as admin_ingredient_blueprint
+    app.register_blueprint(admin_ingredient_blueprint, url_prefix='/admin')
+    
+    from .views.admin.revenue import admin_revenue as admin_revenue_blueprint
+    app.register_blueprint(admin_revenue_blueprint, url_prefix='/admin')
     
     return app
 

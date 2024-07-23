@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trang quản trị viên - Bánh nướng</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Trang quản trị viên</h1>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('admin.admin_home') }}">Trang chủ</a></li>
+                <li><a href="{{ url_for('admin_product.manage_products') }}">Quản lý sản phẩm</a></li>
+                <li><a href="{{ url_for('admin_ingredient.manage_ingredients') }}">Quản lý nguyên liệu</a></li>
+                <li><a href="{{ url_for('admin_revenue.manage_revenue') }}">Quản lý doanh thu</a></li>
+                <li><a href="{{ url_for('auth.logout') }}">Đăng xuất</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section>
+            <h2>Danh sách đơn hàng</h2>
+            <div class="order-list">
+                {% for order in orders %}
+                <div class="order-item">
+                    <h3>Sản phẩm: {{ order.product.name }}</h3>
+                    <p>Số lượng: {{ order.quantity }}</p>
+                    <p>Tổng giá: {{ order.total_price }} VND</p>
+                    <p>Trạng thái: {{ order.status }}</p>
+                    {% if order.receipt_image %}
+                    <p>Hóa đơn: <img src="{{ url_for('static', filename='uploads/' ~ order.receipt_image) }}" alt="Hóa đơn" width="200"></p>
+                    {% endif %}
+                    <form action="{{ url_for('admin.admin_home') }}" method="post">
+                        <input type="hidden" name="order_id" value="{{ order.id }}">
+                        {% if order.status == 'Pending Admin Approval' %}
+                        <button type="submit" name="action" value="approve_payment">Xác nhận thanh toán</button>
+                        {% endif %}
+                        {% if order.status == 'Paid' %}
+                        <button type="submit" name="action" value="complete_order">Đánh dấu đã hoàn thành</button>
+                        {% endif %}
+                    </form>
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2024 Cửa hàng Bánh Nướng</p>
+    </footer>
+</body>
+</html>

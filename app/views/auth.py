@@ -39,7 +39,7 @@ def signup():
             flash('Mật khẩu không khớp. Vui lòng thử lại.', 'error')
             return redirect(url_for('auth.signup'))
 
-        hashed_password = generate_password_hash(password, method='sha256')
+        hashed_password = generate_password_hash(password)
         new_user = User(
             username=username,
             fullname=fullname,

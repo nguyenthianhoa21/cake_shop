@@ -56,7 +56,7 @@
                     <p>Giá: {{ product.price }} VND</p>
                     <p>Thời gian làm dự kiến: {{ product.estimated_time }} phút</p>
                     <p>Trạng thái: {% if product.can_make %}Có thể làm{% else %}Không thể làm{% endif %}</p>
-                    <form action="{{ url_for('admin_product.delete_product', product_id=product.id) }}" method="post">
+                    <form action="{{ url_for('admin.delete_product', product_id=product.id) }}" method="post">
                         <button type="submit">Xóa sản phẩm</button>
                     </form>
                 </div>

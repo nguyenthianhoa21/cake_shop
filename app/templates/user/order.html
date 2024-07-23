@@ -13,7 +13,7 @@
             <ul>
                 <li><a href="{{ url_for('user.home') }}">Trang chủ</a></li>
                 <li><a href="{{ url_for('user.account') }}">Tài khoản</a></li>
-                <li><a href="{{ url_for('user.product') }}">Sản phẩm</a></li>
+                <li><a href="{{ url_for('user.product_list') }}">Sản phẩm</a></li>
                 <li><a href="{{ url_for('auth.logout') }}">Đăng xuất</a></li>
             </ul>
         </nav>
@@ -34,7 +34,7 @@
         </section>
         <section>
             <h2>Tạo đơn hàng mới</h2>
-            <form action="{{ url_for('order.order_list') }}" method="post">
+            <form action="{{ url_for('user.order_list') }}" method="post">
                 <div>
                     <label for="product_id">ID sản phẩm:</label>
                     <input type="text" id="product_id" name="product_id" required>
